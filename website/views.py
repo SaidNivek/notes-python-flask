@@ -2,7 +2,7 @@
 from flask import Blueprint
 
 # This file is a blueprint of our application
-views = Blueprint('views', __name__)
+views=Blueprint('views', __name__)
 
 # Whenever we go to the main page of our website (/), whatever is inside the home function will run
 @views.route('/')

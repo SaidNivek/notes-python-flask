@@ -1,7 +1,7 @@
 # Website is a Python package because of the __init__.py folder that we added to it
 from website import create_app
 
-app = create_app()
+app=create_app()
 
 # Make sure there is no space between the == or it won't work
 if __name__=='__main__':
