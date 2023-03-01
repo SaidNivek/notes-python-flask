@@ -58,12 +58,12 @@
     <!-- If you want to have css or javascript or images, any static file, you would add them like this
          The type of the file, in this case text/javascript AND
          the source of the file, using the pathname and name of the file
-         The {{ }} tell jinja that there is Python code in here to be executed
+         The curly brackets tell jinja that there is Python code in here to be executed
     -->
     <script
       type="text/javascript"
       src="{{ url_for('static', filename='index.js') }}"
     ></script>
-    {% endblock %}
+
   </body>
 </html>
