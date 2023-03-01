@@ -22,11 +22,23 @@
   </head>
 
   <body>
-
-
-
-
-
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbar"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" id="home" href="/">Home</a>
+          <a class="nav-item nav-link" id="login" href="/login">Login</a>
+          <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
+        </div>
+      </div>
+    </nav>
 
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -49,8 +61,8 @@
          The {{ }} tell jinja that there is Python code in here to be executed
     -->
     <script
-        type="text/javascript"
-        src="{{ url_for('static', filename='index.js') }}"
+      type="text/javascript"
+      src="{{ url_for('static', filename='index.js') }}"
     ></script>
     {% endblock %}
   </body>
