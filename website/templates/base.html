@@ -14,7 +14,10 @@
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       crossorigin="anonymous"
     />
-
+    <!-- Writing a base block that can be overrideen in a child template
+         The 'title' block will be able to be changed by the children of this template
+         The children will inherit the base template and then be able to be changed dynamically on those pages
+    -->
     <title>{% block title %}Home{% endblock %}</title>
   </head>
 
