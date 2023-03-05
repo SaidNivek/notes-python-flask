@@ -11,8 +11,8 @@ def login():
     # If we want to get the info sent from this form, we set data = request.form
     # When accessed inside of a route, the request variable will have the data that was sent in the request from within that route
     # By using request.form, we will be able to access the info that was in the form on that route
-    data=request.form
-    print(data)
+    # data=request.form
+    # print(data)
     return render_template('login.html')
 
 @auth.route('/logout')
@@ -21,4 +21,24 @@ def logout():
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
+    if request.method == 'POST':
+        # If the request is a POST request, we will get the following information from the form
+        # Must use the request.for.get('name from form') to access the data from within that form
+        email = request.form.get('email')
+        firstName = request.form.get('firstName')
+        password1 = request.form.get('password1')
+        password2 = request.form.get('password2')
+
+        if len(email) < 4:
+            pass
+        elif len(firstName) < 2:
+            pass
+        elif password1 != password2:
+            pass
+        elif len(password1) < 7 :
+            pass
+        else:
+            # add user to database
+            pass
+
     return render_template('sign_up.html')
