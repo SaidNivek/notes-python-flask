@@ -1,6 +1,7 @@
 # Store the standard routes for our websites, where the user can navigate to
 # Need to import request at the top of our flask app so we can use it in the HHTP requests
-from flask import Blueprint, render_template, request
+#  flash is needed in order to use flask to flash messages to the screen
+from flask import Blueprint, render_template, request, flash
 
 # This file is a blueprint of our application, specifically for authentication
 auth=Blueprint('auth', __name__)
@@ -30,15 +31,15 @@ def sign_up():
         password2 = request.form.get('password2')
 
         if len(email) < 4:
-            pass
+            flash('Email must be greater than 4 characters', category='error')
         elif len(firstName) < 2:
-            pass
+            flash('Email must be greater than 1 character', category='error')
         elif password1 != password2:
-            pass
+            flash('Passwords must match', category='error')
         elif len(password1) < 7 :
-            pass
+            flash('Password must be at least 7 characters', category='error')
         else:
             # add user to database
-            pass
+            flash('Account created!', category='success')
 
     return render_template('sign_up.html')
