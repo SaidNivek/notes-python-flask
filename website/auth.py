@@ -8,6 +8,11 @@ auth=Blueprint('auth', __name__)
 # In order for a route to be able to accept HTTP requests, we need to add them to the methods=[], passing in a string of the requests that we want that particular route to be able to handle
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    # If we want to get the info sent from this form, we set data = request.form
+    # When accessed inside of a route, the request variable will have the data that was sent in the request from within that route
+    # By using request.form, we will be able to access the info that was in the form on that route
+    data=request.form
+    print(data)
     return render_template('login.html')
 
 @auth.route('/logout')
