@@ -41,7 +41,9 @@
         </div>
       </div>
     </nav>
-    <!--  -->
+    <!-- using the below code, we are able to flash messages that are connected to the auth.py and the form on the page. -->
+    <!-- This will get the messages, assigning it to the value of get_flashed_messages(with_categories=true)  -->
+    <!-- If there are messages, it will display them, depending on if the category (defined in auth.py) is error or success -->
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         {% for category, message in messages %}
