@@ -23,3 +23,4 @@ class Note(db.Model):
     data = db.Column(db.String(10,000))
     # func.now uses sqlalchemy, where we imported it above, and automatically gives it the date/time of when the note is created, so we don't have to specify that date/time ourselves
     date = db.Column(db.DateTime(timezone=True), default=func.now())
+    
