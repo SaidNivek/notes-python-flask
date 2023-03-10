@@ -22,5 +22,8 @@ class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.String(10,000))
     # func.now uses sqlalchemy, where we imported it above, and automatically gives it the date/time of when the note is created, so we don't have to specify that date/time ourselves
-    date = db.Column(db.DateTime(timezone=True), default=func.now())
-    
+    date = db.Column(db.DateTime(timezone=True), default=func.now())    
+    # In order to use a foregin key, we do it by setting up a relationship between the two objects
+    # For every note we are going to store the id of the User who created that note
+    # We must pass the valid id of an exisiting user to the db.ForeignKey field
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
