@@ -5,9 +5,20 @@ from flask_login import UserMixin
 # Importing func allows us to use sqlalchemy functions, which will make the database functions we specify easier to write and use, eliminating the need for us to write much-used functions ourselves
 from sqlalchemy.sql import func
 
+
+class Note(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    data = db.Column(db.String(10,000))
+    # func.now uses sqlalchemy, where we imported it above, and automatically gives it the date/time of when the note is created, so we don't have to specify that date/time ourselves
+    date = db.Column(db.DateTime(timezone=True), default=func.now())    
+    # In order to use a foregin key, we do it by setting up a relationship between the two objects
+    # For every note we are going to store the id of the User who created that note
+    # We must pass the valid id of an exisiting user to the db.ForeignKey field
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
 # To define a db object, we create the class in the singular and inherit from db.model (db we imported above)
 # For this model, we are also inheriting from UserMixin
-class User(db.model, UserMixin):
+class User(db.Model, UserMixin):
     # In here, we define all of the columns that we want to store in the db
     # AKA a schema in other programming languages
     # id is the primary key for this database table
@@ -21,12 +32,4 @@ class User(db.model, UserMixin):
     # The relationship field will add the notes to a list when a user creates a Note
     notes = db.relationship('Note')
 
-class Note(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    data = db.Column(db.String(10,000))
-    # func.now uses sqlalchemy, where we imported it above, and automatically gives it the date/time of when the note is created, so we don't have to specify that date/time ourselves
-    date = db.Column(db.DateTime(timezone=True), default=func.now())    
-    # In order to use a foregin key, we do it by setting up a relationship between the two objects
-    # For every note we are going to store the id of the User who created that note
-    # We must pass the valid id of an exisiting user to the db.ForeignKey field
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+

@@ -1,6 +1,8 @@
 from flask import Flask
 # We need this for the SQL database that we are going to use for this project
 from flask_sqlalchemy import SQLAlchemy
+# os stands for Operating System
+from os import path
 
 # Initialize a new database
 # This is the object we are going to use whenever we need to use a database for a user, for notes, etc.
@@ -24,7 +26,13 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    #
+    # We need to make sure that we load this file runs and defines these classes before we initialize and create our database
     from .models import User, Note
+
+    # use the app.appcontext() function to check to see if a database ealready exists
+    # If it does not exist, the context will create a database
+    # Flask-SQLAlchemy 3 no longer accepts an 'app' argument as a method, instead, it requires an active Flask application context
+    with app.app_context():
+        db.create_all
 
     return app
