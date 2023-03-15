@@ -33,7 +33,7 @@ def create_app():
     # If it does not exist, the context will create a database
     # Flask-SQLAlchemy 3 no longer accepts an 'app' argument as a method, instead, it requires an active Flask application context
     with app.app_context():
-        db.create_all
+        db.create_all()
         print('Database created!')
 
     return app
