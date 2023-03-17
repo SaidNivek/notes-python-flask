@@ -3,6 +3,8 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 # os stands for Operating System
 from os import path
+# login_manager helps us manage login/out functionality
+from flask_login import LoginManager
 
 # Initialize a new database
 # This is the object we are going to use whenever we need to use a database for a user, for notes, etc.
@@ -19,6 +21,17 @@ def create_app():
     # This gives the app to the database, so it knows what app is using it
     db.init_app(app)
 
+    login_manager= LoginManager()
+    # Where should flask redirect us if a user is not logged in?
+    # This login_view will tell the system where to send a non-logged in user
+    login_manager.login_view = 'auth.login'
+    # This tells the login_manager what app it should be used on
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
+
     from .views import views
     from .auth import auth
 
@@ -29,11 +42,27 @@ def create_app():
     # We need to make sure that we load this file runs and defines these classes before we initialize and create our database
     from .models import User, Note
 
+    
+
     # use the app.appcontext() function to check to see if a database ealready exists
     # If it does not exist, the context will create a database
     # Flask-SQLAlchemy 3 no longer accepts an 'app' argument as a method, instead, it requires an active Flask application context
     with app.app_context():
         db.create_all()
         print('Database created!')
+
+    login_manager= LoginManager()
+    # Where should flask redirect us if a user is not logged in?
+    # This login_view will tell the system where to send a non-logged in user
+    login_manager.login_view = 'auth.login'
+    # This tells the login_manager what app it should be used on
+    login_manager.init_app(app)
+
+    # This tells flask how we load a user
+    @login_manager.user_loader
+    def load_user(id):
+        # Will look for the primary key if you use 'get'
+        # In this case, we are using the int version of whatever id is passed into this function, looking at the User model
+        return User.query.get(int(id))
 
     return app

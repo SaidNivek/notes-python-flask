@@ -33,6 +33,10 @@ def login():
             if check_password_hash(user.password, password):
                 # If the passwords match, flash logged in successfully
                 flash('Logged in successfully!', category='success')
+                # If we find a user, pass the user into the login_user function
+                # This will be stored in the flask session, set by remember=True
+                login_user(user, remember=True)
+                return redirect(url_for('views.home'))
             else:
                 flash('Incorrect email or password. Please try again.', category='error')
         # If there is no user, let them know that there is an error
@@ -42,8 +46,13 @@ def login():
     return render_template('login.html')
 
 @auth.route('/logout')
+# Cannot access this route unless the user is logged in using the @login_required decorator
+@login_required
 def logout():
-    return "<p>Logout</p>"
+    # Logout the user using the flask_login framework
+    logout_user()
+    # When a user logs out, send them back to the sign in page
+    return redirect(url_for('auth.login'))
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
@@ -69,6 +78,7 @@ def sign_up():
             new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
+            login_user(new_user, remember=True)
             flash('Account created!', category='success')
             return redirect(url_for('views.home'))
 
