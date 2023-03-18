@@ -43,7 +43,7 @@ def login():
         else: 
             flash('Incorrect email or password. Please try again.', category='error')
 
-    return render_template('login.html')
+    return render_template('login.html', user=current_user)
 
 @auth.route('/logout')
 # Cannot access this route unless the user is logged in using the @login_required decorator
@@ -82,5 +82,4 @@ def sign_up():
             flash('Account created!', category='success')
             return redirect(url_for('views.home'))
 
-
-    return render_template('sign_up.html')
+    return render_template('sign_up.html', user=current_user)

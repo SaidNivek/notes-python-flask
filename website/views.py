@@ -11,5 +11,5 @@ views=Blueprint('views', __name__)
 # Can only access this page if the user is logged in
 @login_required
 def home():
-    return render_template('home.html')
+    return render_template('home.html', user=current_user)
     # To render a template, we return the render_template function and then the name of the html template
