@@ -6,13 +6,15 @@
 
 <ul class="list-group list-group-flush" id="notes">
     {% for note in user.notes %}
-        <li class="list-group-item">{{note.data}}</li>
-        <!-- Delete button for each note -->
-        <!-- This onClick will send a request to the backend that will delete the note on the backend -->
-        <!-- Since we are in the for loop, the deleteNote function has access to note.id, which can be used for the request to the backend -->
-        <button type="button" class="close" onClick="deleteNote({{ note.id }})">
-            <span aria-hidden="true">&times;</span>
-        </button>
+        <li class="list-group-item">
+            {{note.data}}
+            <!-- Delete button for each note -->
+            <!-- This onClick will send a request to the backend that will delete the note on the backend -->
+            <!-- Since we are in the for loop, the deleteNote function has access to note.id, which can be used for the request to the backend -->
+            <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </li>
     {% endfor %}
 </ul>
 
